@@ -2,3 +2,5 @@ flask
 sqlalchemy
 Flask-SQLAlchemy
 jinja2
+python-dotenv
+requests

@@ -1,10 +1,18 @@
+import json
 import os
 from datetime import datetime
-from datetime import date
-
+import requests
+from dotenv import load_dotenv
 
 from data_models import db, Author, Book
 from flask import Flask, request, render_template, redirect, url_for
+
+
+
+load_dotenv()
+
+# Now you can access your environment variables using os.environ
+rapid_api_key = os.getenv('RAPID-API-KEY')
 
 
 
@@ -20,7 +28,6 @@ db.init_app(app)
 
 @app.route("/",  methods=["GET"])
 def home():
-
     success_message = request.args.get('success_message')
     sort = request.args.get("sort")
     search = request.args.get("search")
@@ -98,114 +105,32 @@ def rate_book(book_id):
     return render_template("book_details.html", book=book, book_rating=book_rating)
 
 
+@app.route("/book_recommendation",  methods=["GET"])
+def book_recommendation():
+    preferences = request.args.get("preferences")
+    books = db.session.query(Book).all()
+    rapid_api_url = "https://chatgpt-42.p.rapidapi.com/chatgpt"
+    books_list=[(book.title, book.rating) for book in books]
+    content = f"""
+    those are list of books in the database with their ratings {books_list}  rating 0 means the rating was not
+    entered yet what book do you recommend to read and why. 
+    please provide the response in the following format: book_name // justification
+    """
+    if preferences:
+        content += f"those are the reader preferences: {preferences} please prioritize those preferences over ratings"
+    headers = {
+        'content-type': 'application/json',
+        'x-rapidapi-host': 'chatgpt-42.p.rapidapi.com' ,
+        'x-rapidapi-key': rapid_api_key
+         }
+    data = {
+        "messages": [{"role": "user", "content": content}],
+        "web_access": False
+    }
+    response = requests.post(rapid_api_url, data= json.dumps(data), headers=headers)
+    title, justification = response.json()["result"].split("//")
+    return render_template("book_recommendation.html", title=title, justification=justification)
+
 if __name__ == '__main__':
-    # with app.app_context():
-    #     db.create_all()
-    #
-    # # List of well-known authors with their birth and death dates and books
-    # with app.app_context():
-    #     authors_books_data = {
-    #         "George Orwell": {
-    #             "birth_date": date(1903, 6, 25),
-    #             "death_date": date(1950, 1, 21),
-    #             "books": [
-    #                 {"title": "1984", "isbn": "9780451524935", "year": 1949},
-    #                 {"title": "Animal Farm", "isbn": "9780451526342", "year": 1945}
-    #             ]
-    #         },
-    #         "Jane Austen": {
-    #             "birth_date": date(1775, 12, 16),
-    #             "death_date": date(1817, 7, 18),
-    #             "books": [
-    #                 {"title": "Pride and Prejudice", "isbn": "9780141040349", "year": 1813},
-    #                 {"title": "Sense and Sensibility", "isbn": "9780141439672", "year": 1811}
-    #             ]
-    #         },
-    #         "J.K. Rowling": {
-    #             "birth_date": date(1965, 7, 31),
-    #             "death_date": None,  # J.K. Rowling is still alive
-    #             "books": [
-    #                 {"title": "Harry Potter and the Sorcerer's Stone", "isbn": "9780590353427", "year": 1997},
-    #                 {"title": "Harry Potter and the Chamber of Secrets", "isbn": "9780439064873", "year": 1998}
-    #             ]
-    #         },
-    #         "F. Scott Fitzgerald": {
-    #             "birth_date": date(1896, 9, 24),
-    #             "death_date": date(1940, 12, 21),
-    #             "books": [
-    #                 {"title": "The Great Gatsby", "isbn": "9780743273565", "year": 1925},
-    #                 {"title": "Tender Is the Night", "isbn": "9780743244532", "year": 1934}
-    #             ]
-    #         },
-    #         "Mark Twain": {
-    #             "birth_date": date(1835, 11, 30),
-    #             "death_date": date(1910, 4, 21),
-    #             "books": [
-    #                 {"title": "The Adventures of Tom Sawyer", "isbn": "9780486400778", "year": 1876},
-    #                 {"title": "Adventures of Huckleberry Finn", "isbn": "9780142437179", "year": 1884}
-    #             ]
-    #         },
-    #         "Leo Tolstoy": {
-    #             "birth_date": date(1828, 9, 9),
-    #             "death_date": date(1910, 11, 20),
-    #             "books": [
-    #                 {"title": "War and Peace", "isbn": "9781853260629", "year": 1869},
-    #                 {"title": "Anna Karenina", "isbn": "9781853262715", "year": 1877}
-    #             ]
-    #         },
-    #         "Haruki Murakami": {
-    #             "birth_date": date(1949, 1, 12),
-    #             "death_date": None,  # Haruki Murakami is still alive
-    #             "books": [
-    #                 {"title": "Norwegian Wood", "isbn": "9780375704024", "year": 1987},
-    #                 {"title": "Kafka on the Shore", "isbn": "9781400079278", "year": 2002}
-    #             ]
-    #         },
-    #         "Gabriel García Márquez": {
-    #             "birth_date": date(1927, 3, 6),
-    #             "death_date": date(2014, 4, 17),
-    #             "books": [
-    #                 {"title": "One Hundred Years of Solitude", "isbn": "9780060883287", "year": 1967},
-    #                 {"title": "Love in the Time of Cholera", "isbn": "9780307389732", "year": 1985}
-    #             ]
-    #         },
-    #         "Ernest Hemingway": {
-    #             "birth_date": date(1899, 7, 21),
-    #             "death_date": date(1961, 7, 2),
-    #             "books": [
-    #                 {"title": "The Old Man and the Sea", "isbn": "9780684801223", "year": 1952},
-    #                 {"title": "A Farewell to Arms", "isbn": "9780099908401", "year": 1929}
-    #             ]
-    #         },
-    #         "Oscar Wilde": {
-    #             "birth_date": date(1854, 10, 16),
-    #             "death_date": date(1900, 11, 30),
-    #             "books": [
-    #                 {"title": "The Picture of Dorian Gray", "isbn": "9780141441259", "year": 1890},
-    #                 {"title": "The Importance of Being Earnest", "isbn": "9780486275479", "year": 1895}
-    #             ]
-    #         }
-    #     }
-    #
-    #     # Create authors and books
-    #     for author_name, author_data in authors_books_data.items():
-    #         author = Author(
-    #             name=author_name,
-    #             birth_date=author_data["birth_date"],
-    #             death_date=author_data["death_date"]
-    #         )
-    #         db.session.add(author)
-    #         db.session.commit()  # Commit to get the author ID for referencing in books
-    #
-    #         for book_data in author_data["books"]:
-    #             book = Book(
-    #                 title=book_data['title'],
-    #                 isbn=book_data['isbn'],
-    #                 publication_year=book_data['year'],
-    #                 author=author  # Associate the book with the author
-    #             )
-    #             db.session.add(book)
-    #
-    #     # Commit all the books to the database
-    #     db.session.commit()
+
     app.run(host="0.0.0.0", port=5000, debug=True)

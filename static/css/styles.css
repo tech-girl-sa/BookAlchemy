@@ -9,6 +9,8 @@
 
     }
     .container {
+        margin-top: 100px;
+        margin-bottom: 100px;
         width: 80%;
         max-width: 600px;
         background: white;
@@ -27,7 +29,7 @@
     h1 {
         color: #333;
     }
-    .search-sort {
+    .search-sort-recommendation {
         display: flex;
         justify-content: space-between;
         gap:5px;

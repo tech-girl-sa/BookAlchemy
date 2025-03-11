@@ -14,7 +14,7 @@
      </div>
       {% endif %}
     <h1>Book List</h1>
-   <form class="search-sort" >
+   <form class="search-sort-recommendation" >
             <input type="text" id="search" name="search" placeholder="Search books...">
             <select id="sort" name="sort">
                 <option value="">Sort by -</option>
@@ -22,6 +22,10 @@
                 <option value="author">Sort by Author</option>
             </select>
        <button type="submit">Apply</button>
+        </form>
+      <form class="search-sort-recommendation" action="{{ url_for('book_recommendation') }}">
+            <input type="text" id="preferences" name="preferences" placeholder="What are your preferences...">
+       <button type="submit">Recommend a book for me</button>
         </form>
          {%if not books%}
      <div >
