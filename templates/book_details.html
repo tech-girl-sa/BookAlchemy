@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Details</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Book Details</h1>
+        <div class="book-info">
+            <h2 id="book-title">{{book.title}}</h2>
+            <p><strong>Publication Year:</strong> <span id="book-year">{{book.publication_year}}</span></p>
+            <p><strong>ISBN:</strong> <span id="book-isbn">{{book.isbn}}</span></p>
+            <p><strong>Author:</strong> <span id="book-author">{{book.author.name}}</span></p>
+            <p><strong>Rating:</strong> <span class="stars">{{book_rating}}</span></p>
+        </div>
+        <a href="{{ url_for('home') }}"  class="back-btn">Back to List</a>
+    </div>
+</body>
+</html>

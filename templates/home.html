@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <div class="container">
+      {% if success_message %}
+     <div id="success-message" class="success-message" >
+                    {{ success_message }}
+     </div>
+      {% endif %}
+    <h1>Book List</h1>
+   <form class="search-sort" >
+            <input type="text" id="search" name="search" placeholder="Search books...">
+            <select id="sort" name="sort">
+                <option value="">Sort by -</option>
+                <option value="title">Sort by Title</option>
+                <option value="author">Sort by Author</option>
+            </select>
+       <button type="submit">Apply</button>
+        </form>
+         {%if not books%}
+     <div >
+                   There are no books that match the search criteria
+     </div>
+      {% endif %}
+    <ul id="book-list">
+        {% for book in books %}
+        <li><div class="book-link">
+            <a href="{{ url_for('book_details', book_id=book.id) }}" class="book-link">
+            <span class="book-title"><strong>Title:</strong> {{book.title}} ( {{book.publication_year}} )</span>
+            <span class="book-author"><strong>Author:</strong> {{book.author.name}}</span>
+            </a>
+               <form action="{{ url_for('rate_book', book_id=book.id) }}" method="post" class="rating-form">
+            <div class="rating-stars">
+                {% for i in range(0, 10) %}
+            <input type="radio" id="star-{{ i }}-{{ book.id }}" name="rating" value="{{ i }}" {% if book.rating == i %}checked{% endif %}>
+            {% if i != 0%}
+                <label for="star-{{ i }}-{{ book.id }}" class="star">&#9733;</label>
+                {% endif %}
+        {% endfor %}
+            </div>
+                       <button type="submit" class="rating-btn">Rate</button>
+        </form>
+            </div>
+            <form action="{{ url_for('delete_book', book_id=book.id) }}" method="post">
+         <button class="delete-btn">
+            <i class="fas fa-trash-alt delete-icon"></i>
+         </button>
+            </form>
+        </li>
+
+        {% endfor %}
+    </ul>
+  </div>
+</body>
+</html>

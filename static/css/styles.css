@@ -1,0 +1,246 @@
+ body { 
+        font-family: 'Poppins', sans-serif; 
+        margin: 0; 
+        padding: 0; 
+        background-color: #f0f2f5; 
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+
+    }
+    .container {
+        width: 80%;
+        max-width: 600px;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+    .success-message {
+        background: #d4edda;
+        color: #155724;
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+    }
+    h1 {
+        color: #333;
+    }
+    .search-sort {
+        display: flex;
+        justify-content: space-between;
+        gap:5px;
+        margin-bottom: 15px;
+    }
+    input, select, button {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+    button {
+        background: #007bff;
+        color: white;
+        cursor: pointer;
+        transition: 0.3s;
+        font-weight: bold;
+    }
+    button:hover {
+        background: #0056b3;
+    }
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+    li {
+        background: white;
+        padding: 15px;
+        margin: 10px 5px;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content:space-between;
+        align-items: center;
+    }
+    form {
+        text-align: left;
+    }
+    label {
+        font-weight: bold;
+        display: block;
+        margin-top: 10px;
+    }
+
+    /* Style for the delete button */
+.delete-btn {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #fff;
+    border: 2px solid #e60000;
+    border-radius: 5px;
+    color: #e60000;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    max-width: 50px;
+    max-height: 45px;
+}
+
+.delete-btn:hover {
+    background-color: #e60000;
+    color: #fff;
+}
+
+.delete-btn:focus {
+    outline: none;
+}
+
+.delete-btn .delete-icon {
+    margin-right: 8px;
+    font-size: 18px;  /* Reduces the icon size */
+    color: #e60000;
+}
+
+.delete-btn:hover .delete-icon {
+    color: #fff;  /* Change icon color on hover */
+}
+.book-info {
+        text-align: left;
+        padding: 15px;
+        background: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+    .stars {
+        font-size: 24px;
+        color: gold;
+    }
+    .back-btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        background: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: 0.3s;
+    }
+    .back-btn:hover {
+        background: #0056b3;
+    }
+
+.book-link {
+    all: unset;
+    cursor: pointer;
+    flex-grow: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.book-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #007bff;
+}
+
+.book-author {
+    font-size: 14px;
+    color: #555;
+}
+
+.book-link:hover .book-title {
+    text-decoration: underline;
+}
+
+.book-link:hover .book-title {
+    text-decoration: underline;
+}
+/* Rating Form Container */
+.rating-form {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Star Rating Styles */
+.rating-stars {
+    display: flex;
+}
+
+.star {
+    font-size: 1.5em;
+    color: gold;
+    cursor: pointer;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]:checked + .star {
+    color: gold; /* Highlight selected star */
+}
+
+/* Button Style */
+.rating-btn {
+    padding: 5px 10px;
+    background-color: #e60000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.rating-btn:hover {
+    background-color: #c10000;
+}
+/* When radio is checked, grey out the stars that come after */
+input[type="radio"]:checked ~ label.star{
+    color: #ccc; /* Grey out the stars after the clicked one */
+}
+/* Ensure the selected star remains gold */
+input[type="radio"]:checked + label.star{
+    color: gold; /* Selected star stays gold */
+}
+
+
+/* Rating Form Container */
+.rating-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Button Style with Border */
+.rating-btn {
+    padding: 10px 20px;
+    background-color: transparent; /* Transparent background */
+    color: #ffcc00; /* Yellow text color */
+    max-width:80px;
+    border: 2px solid #ffcc00; /* Yellow border */
+    border-radius: 25px; /* Rounded corners */
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Button hover effect with border change */
+.rating-btn:hover {
+    background-color: #ffcc00; /* Yellow background on hover */
+    color: white; /* White text on hover */
+    border-color: #ffb900; /* Darker yellow border on hover */
+}
+
+/* Button focus effect */
+.rating-btn:focus {
+    outline: none;
+    box-shadow: 0 0 5px #ffcc00; /* Glow effect when focused */
+}

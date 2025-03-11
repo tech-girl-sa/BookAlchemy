@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Author</title>
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+  <div class="container">
+     {%if success_message%}
+     <div id="success-message" class="success-message" >
+                    {{ success_message }}
+     </div>
+      {% endif %}
+        <h1>Add Author</h1>
+  <form method="post">
+    <label for="name">Author name</label>
+    <input name="name" type="text" id="name">
+    <label for="birth_date">Author name</label>
+    <input name="birth_date" type="date" id="birth_date">
+    <label for="death_date">Author name</label>
+    <input name="death_date" type="date" id="death_date">
+    <button type="submit">Add Author</button>
+  </form>
+</div>
+</body>
+</html>
