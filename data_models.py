@@ -1,7 +1,5 @@
 import datetime
 from typing import List
-
-from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import  ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
