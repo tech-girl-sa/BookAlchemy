@@ -13,7 +13,13 @@
                     {{ success_message }}
      </div>
       {% endif %}
+    <div class="home-header">
     <h1>Book List</h1>
+    <div class="action-buttons">
+        <a href="{{ url_for('add_book') }}" class="btn add-book-btn"><i class="fas fa-book"></i>  Add Book</a>
+        <a href="{{ url_for('add_author') }}" class="btn add-author-btn"><i class="fas fa-user"></i> Add Author</a>
+    </div>
+    </div>
    <form class="search-sort-recommendation" >
             <input type="text" id="search" name="search" placeholder="Search books...">
             <select id="sort" name="sort">
