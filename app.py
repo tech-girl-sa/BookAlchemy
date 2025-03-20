@@ -48,8 +48,15 @@ def add_author():
         return render_template("add_author.html", success_message=success_message)
     else:
         data = dict(request.form)
-        data["birth_date"] = datetime.strptime(data["birth_date"], "%Y-%m-%d").date()
-        data["death_date"] = datetime.strptime(data["death_date"], "%Y-%m-%d").date()
+        try:
+            data["birth_date"] = datetime.strptime(data["birth_date"], "%Y-%m-%d").date()
+        except ValueError:
+            data["birth_date"] = None
+        try:
+            data["death_date"] = datetime.strptime(data["death_date"], "%Y-%m-%d").date()
+        except ValueError:
+            data["death_date"] = None
+
         author=Author(**data)
         db.session.add(author)
         db.session.commit()
