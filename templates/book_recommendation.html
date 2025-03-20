@@ -13,7 +13,7 @@
                     {{ success_message }}
      </div>
       {% endif %}
-        <h1>Suggested book is {{ title }}!</h1>
+        <h1>{% if error %}Error {% else %}Suggested book is {% endif %} {{ title }}!</h1>
 
           <p> {{ justification }}</p>
 

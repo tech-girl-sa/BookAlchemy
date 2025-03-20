@@ -135,8 +135,15 @@ def book_recommendation():
         "web_access": False
     }
     response = requests.post(rapid_api_url, data= json.dumps(data), headers=headers)
-    title, justification = response.json()["result"].split("//")
-    return render_template("book_recommendation.html", title=title, justification=justification)
+    error = False
+    if response.ok:
+        title, justification = response.json().get("result", "//").split("//")
+    else:
+        error = True
+        title, justification = response.status_code, response.json().get("message",
+                                                                         "There was an issue fetching data from API")
+    return render_template("book_recommendation.html",
+                           title=title, justification=justification, error=error)
 
 if __name__ == '__main__':
 
