@@ -246,3 +246,41 @@ input[type="radio"]:checked + label.star{
     outline: none;
     box-shadow: 0 0 5px #ffcc00; /* Glow effect when focused */
 }
+
+.home-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0px
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: 0.3s ease-in-out;
+    font-weight: bold;
+}
+
+.add-book-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.add-author-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+.btn i {
+margin-right: 5px;
+}
